@@ -1,0 +1,54 @@
+#
+server:
+  servlet:
+    context-path: /
+    session:
+      timeout: 3600 # in seconds, so 60 min  # If a duration suffix is not specified, seconds will be used.
+  compression:
+    min-response-size: 1024
+    mime-types: text/html,text/xml,text/plain,text/css,text/javascript,application/javascript,application/json
+    enabled: true
+  port: 8080
+
+info:
+  app:
+    name: rag-api
+    version: '@project.version@'
+
+logging:
+  level:
+    com.epam.training.gen.ai: debug
+    org.springframework: info
+    org:
+      hibernate: info
+      springframework:
+        web:
+          servlet:
+            DispatcherServlet: DEBUG
+
+client:
+  openai-key: ${DIAL_KEY:1}
+  openai-endpoint: ${OPEN_AI_ENDPOINT:https://ai-proxy.lab.epam.com}
+  chat-completion-endpoint: /openai/deployments/dall-e-3/chat/completions?api-version=2023-12-01-preview
+  openai-deployment-name: ${OPEN_AI_DEPLOYMENT_NAME:dall-e-3}
+
+chat:
+  model: "gpt-4-turbo"
+
+spring:
+  datasource:
+    url: "jdbc:postgresql://localhost:5432/embeddings_db" #?stringtype=unspecified # 5433
+    username: ${POSTGRES_USER:admin}
+    password: ${POSTGRES_PASSWORD}
+    driverClassName: org.postgresql.Driver
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+        hbm2ddl:
+          auto: none
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+
