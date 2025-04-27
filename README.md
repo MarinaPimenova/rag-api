@@ -27,11 +27,11 @@ This project demonstrates a minimal **RAG system** using:
 
 ---
 
-## 🚀 How to Run
+## How to Run
 
 ### Backend
 ```bash
-cd ge_ai_training
+cd rag-api
 ./mvnw spring-boot:run
 ```
 ### Frontend
