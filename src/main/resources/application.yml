@@ -26,16 +26,31 @@ logging:
           servlet:
             DispatcherServlet: DEBUG
 
-client:
-  openai-key: ${DIAL_KEY:1}
-  openai-endpoint: ${OPEN_AI_ENDPOINT:https://ai-proxy.lab.epam.com}
-  chat-completion-endpoint: /openai/deployments/dall-e-3/chat/completions?api-version=2023-12-01-preview
-  openai-deployment-name: ${OPEN_AI_DEPLOYMENT_NAME:dall-e-3}
-
-chat:
-  model: "gpt-4-turbo"
-
 spring:
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+      resolve-lazily: false
+      enabled: true
+  ai:
+    vectorstore:
+      pgvector:
+        index-type: HNSW
+        distance-type: COSINE_DISTANCE
+        dimensions: 1536
+        initialize-schema: false
+        schema-name: public
+        table-name: vector_store
+        max-document-batch-size: 10000
+    openai:
+      api-key: ${DIAL_KEY}
+      base-url: https://ai-proxy.lab.epam.com
+      chat:
+        completions-path: /openai/deployments/gpt-4.1-mini-2025-04-14/chat/completions
+        model: "gpt-3.5-turbo" #"gpt-4-turbo"
+        base-url: ${OPEN_AI_ENDPOINT:https://ai-proxy.lab.epam.com}
+        embeddings-path: /openai/deployments/text-embedding-ada-002/embeddings
   datasource:
     url: "jdbc:postgresql://localhost:5432/embeddings_db" #?stringtype=unspecified # 5433
     username: ${POSTGRES_USER:admin}
