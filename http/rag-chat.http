@@ -1,0 +1,22 @@
+POST http://localhost:8080/api/ask?sessionId=1
+Content-Type: application/json
+
+{
+  "question": "What can be used for AWs EKS monitoring?"
+}
+###
+POST http://localhost:8080/api/ask?sessionId=1
+Content-Type: application/json
+
+{
+  "question": "What else can be used for AWs EKS monitoring?"
+}
+###
+###
+POST http://localhost:8080/api/ask?sessionId=2
+Content-Type: application/json
+
+{
+  "question": "Please, list the ways to deploy Lambda-based application."
+}
+###

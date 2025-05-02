@@ -14,17 +14,46 @@
 
     <properties>
         <java.version>17</java.version>
+        <spring-ai.version>1.0.0-M7</spring-ai.version>
     </properties>
 
     <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
-        </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+<!--        <dependency>
+            <groupId>org.springframework.ai</groupId>
+            <artifactId>spring-ai-starter-model-openai</artifactId>
+        </dependency>-->
+        <dependency>
+            <groupId>org.springframework.ai</groupId>
+            <artifactId>spring-ai-openai</artifactId>
+        </dependency>
+        <!--        <dependency>
+                    <groupId>org.springframework.ai</groupId>
+                    <artifactId>spring-ai-starter-vector-store-pgvector</artifactId>
+                </dependency>-->
+        <dependency>
+            <groupId>org.springframework.ai</groupId>
+            <artifactId>spring-ai-pdf-document-reader</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.ai</groupId>
+            <artifactId>spring-ai-tika-document-reader</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+        <!--Instead of using the Spring Boot auto-configuration,
+         manually configure the PgVectorStore. -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jdbc</artifactId>
         </dependency>
 
         <dependency>
@@ -34,45 +63,69 @@
         </dependency>
 
         <dependency>
+            <groupId>org.springframework.ai</groupId>
+            <artifactId>spring-ai-pgvector-store</artifactId>
+        </dependency>
+        <!-- manually configure the PgVectorStore -->
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
+            <version>1.4</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.httpcomponents.client5</groupId>
+            <artifactId>httpclient5</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <optional>true</optional>
         </dependency>
 
-        <dependency>
-            <groupId>com.microsoft.semantic-kernel</groupId>
-            <artifactId>semantickernel-aiservices-openai</artifactId>
-            <version>1.4.2</version>
-        </dependency>
-        <dependency>
-            <groupId>com.microsoft.semantic-kernel</groupId>
-            <artifactId>semantickernel-api</artifactId>
-            <version>1.4.2</version>
-        </dependency>
+        <!--
+                <dependency>
+                    <groupId>com.microsoft.semantic-kernel</groupId>
+                    <artifactId>semantickernel-aiservices-openai</artifactId>
+                    <version>1.4.2</version>
+                </dependency>
+                <dependency>
+                    <groupId>com.microsoft.semantic-kernel</groupId>
+                    <artifactId>semantickernel-api</artifactId>
+                    <version>1.4.2</version>
+                </dependency>
 
-        <dependency>
-            <groupId>com.microsoft.semantic-kernel</groupId>
-            <artifactId>semantickernel-experimental</artifactId>
-            <version>1.4.2</version>
-        </dependency>
+                <dependency>
+                    <groupId>com.microsoft.semantic-kernel</groupId>
+                    <artifactId>semantickernel-experimental</artifactId>
+                    <version>1.4.2</version>
+                </dependency>
 
-        <dependency>
-            <groupId>com.microsoft.semantic-kernel</groupId>
-            <artifactId>semantickernel-bom</artifactId>
-            <version>1.4.2</version>
-            <type>pom</type>
-        </dependency>
+                <dependency>
+                    <groupId>com.microsoft.semantic-kernel</groupId>
+                    <artifactId>semantickernel-bom</artifactId>
+                    <version>1.4.2</version>
+                    <type>pom</type>
+                </dependency>
 
-        <dependency>
-            <groupId>com.microsoft.semantic-kernel</groupId>
-            <artifactId>semantickernel-settings-loader</artifactId>
-            <version>0.2.13-alpha</version>
-        </dependency>
-        <dependency>
-            <groupId>com.azure</groupId>
-            <artifactId>azure-ai-openai</artifactId>
-            <version>1.0.0-beta.14</version>
-        </dependency>
+                <dependency>
+                    <groupId>com.microsoft.semantic-kernel</groupId>
+                    <artifactId>semantickernel-settings-loader</artifactId>
+                    <version>0.2.13-alpha</version>
+                </dependency>
+                <dependency>
+                    <groupId>com.azure</groupId>
+                    <artifactId>azure-ai-openai</artifactId>
+                    <version>1.0.0-beta.14</version>
+                </dependency>
+        -->
 
         <!-- JSON library -->
         <dependency>
@@ -87,12 +140,23 @@
         </dependency>
     </dependencies>
 
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.ai</groupId>
+                <artifactId>spring-ai-bom</artifactId>
+                <version>${spring-ai.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
     <build>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-
             </plugin>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
