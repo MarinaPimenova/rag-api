@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+
+  ollama_llama3:
+    image: ollama/ollama:0.4.2
+    container_name: ollama_llama3
+    ports:
+      - "11434:11434"
+    volumes:
+      - ./ollama_llama3_data:/root/.ollama
+    restart: unless-stopped
+
+  openwebui:
+    image: ghcr.io/open-webui/open-webui:main
+    container_name: openwebui
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./openwebui:/app/backend/data
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    depends_on:
+      - ollama_llama3
+    restart: unless-stopped
+
+volumes:
+  ollama_llama3_data:
+  openwebui:

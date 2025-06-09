@@ -1,0 +1,24 @@
+###
+POST http://localhost:11434/api/chat
+Content-Type: application/json
+
+{
+  "model": "mistral",
+  "messages": [
+    { "role": "user", "content": "Hello!" }
+  ]
+}
+###
+###
+POST http://localhost:11434/api/chat
+Content-Type: application/json
+
+{
+  "model": "llama3.2",
+  "role": "user",
+  "stream": false,
+  "messages": [
+    { "role": "user", "content": "Please provide short answer for: What is LLaMA 3?" }
+  ]
+}
+###

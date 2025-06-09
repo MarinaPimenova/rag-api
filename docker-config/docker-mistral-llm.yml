@@ -1,0 +1,19 @@
+version: "3.9"
+
+services:
+  ollama-mistral:
+    image: ollama/ollama:latest
+    container_name: ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ./ollama_data:/root/.ollama
+    restart: unless-stopped
+    entrypoint: >
+      bash -c "
+      ollama serve &
+      sleep 5 &&
+      ollama pull mistral &&
+      tail -f /dev/null
+      "
+

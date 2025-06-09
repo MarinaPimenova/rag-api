@@ -29,6 +29,34 @@ This project demonstrates a minimal **RAG system** using:
 
 ## How to Run
 
+## Dockerized Approach -> to run LLM
+Run Ollama + Mistral inside Docker to expose a local OpenAI-compatible API at http://localhost:11434.
+
+Way#1 - run docker-compose with model pulling
+```shell
+cd /mnt/c/Users/Marina_Pimenova/sb-projects/rag-api/docker-config
+# stop running containers
+docker-compose down --remove-orphans --volumes
+
+docker-compose -f ./docker-llama3-llm.yml --env-file ./config/.env.dev up
+```
+
+Way#2 - ollama & Web UI
+```shell
+cd /mnt/c/Users/Marina_Pimenova/sb-projects/rag-api/docker-config
+# stop running containers
+docker-compose down --remove-orphans --volumes
+
+#This will start Ollama and Open WebUI containers in detached mode (-d).
+docker-compose -f ./docker-ollama.yml up -d
+
+docker exec -it <container_id> ollama <command>
+# Pull model
+docker exec -it bf1fa026d23b ollama pull llama3.2
+
+```
+
+WEB UI is available on the http://127.0.0.1:8080
 
 ## Docker
 ```shell

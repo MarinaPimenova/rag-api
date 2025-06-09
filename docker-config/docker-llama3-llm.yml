@@ -1,0 +1,21 @@
+version: "3.9"
+
+services:
+  ollama-llama3:
+    image: ollama/ollama:latest
+    container_name: ollama-llama3
+    ports:
+      - "11455:11434"  # Map Ollama's internal port 11434 to host port 11455
+    volumes:
+      - ./ollama_llama3_data:/root/.ollama
+    restart: unless-stopped
+    entrypoint: >
+      bash -c "
+        ollama serve &
+        sleep 5 &&
+        ollama pull llama3.2 &&
+        tail -f /dev/null
+      "
+
+volumes:
+  ollama_llama3_data:
