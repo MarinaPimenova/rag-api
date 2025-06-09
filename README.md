@@ -29,6 +29,21 @@ This project demonstrates a minimal **RAG system** using:
 
 ## How to Run
 
+
+## Docker
+```shell
+cd /mnt/c/Users/Marina_Pimenova/sb-projects/rag-api/docker-config
+``` 
+```shell
+docker-compose --env-file ./config/.env.dev up
+```
+
+## Manually configure the PgVectorStore
+See more [PGvector](https://docs.spring.io/spring-ai/reference/api/vectordbs/pgvector.html)
+```text
+Apply sql/create_vector_store_table.sql to postgre DB
+```
+
 ### Backend
 ```bash
 cd rag-api
@@ -43,17 +58,4 @@ npm run dev
 Frontend URL: http://localhost:5173
 ````
 
-## Docker
-```shell
-cd /mnt/c/Users/Marina_Pimenova/sb-projects/rag-api/docker-config
-``` 
-```shell
-docker-compose --env-file ./config/.env.dev up --build
-```
-
-## Manually configure the PgVectorStore 
-See more [PGvector](https://docs.spring.io/spring-ai/reference/api/vectordbs/pgvector.html)
-```text
-Apply sql/create_vector_store_table.sql to postgre DB
-```
 

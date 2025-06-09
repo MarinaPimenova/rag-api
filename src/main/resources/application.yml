@@ -44,11 +44,11 @@ spring:
         table-name: vector_store
         max-document-batch-size: 10000
     openai:
-      api-key: ${DIAL_KEY}
+      api-key: ${API_KEY}
       base-url: https://ai-proxy.lab.epam.com
       chat:
         completions-path: /openai/deployments/gpt-4.1-mini-2025-04-14/chat/completions
-        model: "gpt-3.5-turbo" #"gpt-4-turbo"
+        model: "gpt-4.1-mini-2025-04-14" #"gpt-4-turbo"
         base-url: ${OPEN_AI_ENDPOINT:https://ai-proxy.lab.epam.com}
         embeddings-path: /openai/deployments/text-embedding-ada-002/embeddings
   datasource:

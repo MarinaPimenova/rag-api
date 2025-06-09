@@ -14,6 +14,15 @@ import org.springframework.stereotype.Component;
 public class AIConfig {
 
     private String apiKey;
-
     private String baseUrl;
+    private Chat chat;
+
+    @Data
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class Chat {
+        private String completionsPath;
+        private String model;
+        private String embeddingsPath;
+    }
 }

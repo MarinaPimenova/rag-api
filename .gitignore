@@ -12,3 +12,6 @@ resources/application-local.yml
 *.ipr
 
 docker-config/db/**
+docker-config/ollama_data/**
+docker-config/ollama_llama3_data/**
+docker-config/openwebui/**

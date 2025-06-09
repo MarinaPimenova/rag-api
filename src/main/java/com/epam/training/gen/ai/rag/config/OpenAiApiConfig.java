@@ -6,18 +6,17 @@ import org.springframework.ai.document.MetadataMode;
 import org.springframework.ai.model.ApiKey;
 import org.springframework.ai.model.SimpleApiKey;
 import org.springframework.ai.openai.OpenAiChatModel;
+import org.springframework.ai.openai.OpenAiChatOptions;
 import org.springframework.ai.openai.OpenAiEmbeddingModel;
 import org.springframework.ai.openai.OpenAiEmbeddingOptions;
 import org.springframework.ai.openai.api.OpenAiApi;
 import org.springframework.ai.retry.RetryUtils;
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
 import org.springframework.util.MultiValueMap;
-import org.springframework.web.client.ResponseErrorHandler;
+import org.springframework.web.client.DefaultResponseErrorHandler;
 import org.springframework.web.client.RestClient;
-
 import org.springframework.web.reactive.function.client.WebClient;
 
 @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
@@ -29,23 +28,33 @@ public class OpenAiApiConfig {
     @Bean
     public OpenAiApi openAiApi(
             RestClient.Builder restClientBuilder,
-            WebClient.Builder webClientBuilder,
-            ResponseErrorHandler responseErrorHandler) {
+            WebClient.Builder webClientBuilder) {
+        DefaultResponseErrorHandler responseErrorHandler = new DefaultResponseErrorHandler();
 
         MultiValueMap<String, String> headers = new HttpHeaders();
         headers.add("cache-control", "no-cache");
         headers.add("Api-Key", aiConfig.getApiKey());
         ApiKey apiKey = new SimpleApiKey(aiConfig.getApiKey());
-        return new OpenAiApi(aiConfig.getBaseUrl(), apiKey, headers,
-                "/openai/deployments/gpt-4.1-mini-2025-04-14/chat/completions",
-                "/openai/deployments/text-embedding-ada-002/embeddings",
+
+        OpenAiApi openAiApi = new OpenAiApi(aiConfig.getBaseUrl(), apiKey, headers,
+                aiConfig.getChat().getCompletionsPath(),//"/openai/deployments/gpt-4.1-mini-2025-04-14/chat/completions",
+                aiConfig.getChat().getEmbeddingsPath(), //"/openai/deployments/text-embedding-ada-002/embeddings",
                 restClientBuilder, webClientBuilder, responseErrorHandler
         );
+
+        return openAiApi;
     }
 
     @Bean
     public ChatModel chatModel(OpenAiApi openAiApi) {
+        OpenAiChatOptions openAiChatOptions = OpenAiChatOptions.builder()
+                .model(aiConfig.getChat().getModel())
+                //.maxTokens(1000)
+                .streamUsage(false)
+                .temperature(0.0)
+                .build();
         return OpenAiChatModel.builder()
+                .defaultOptions(openAiChatOptions)
                 .openAiApi(openAiApi)
                 .build();
     }
@@ -56,8 +65,8 @@ public class OpenAiApiConfig {
                 openAiApi,
                 MetadataMode.EMBED,
                 OpenAiEmbeddingOptions.builder()
-                        .model("text-embedding-ada-002")
-                        .user("user-6")
+                        .model(aiConfig.getChat().getModel()) // "text-embedding-ada-002"
+                        .user("user")
                         .build(),
                 RetryUtils.DEFAULT_RETRY_TEMPLATE);
     }
