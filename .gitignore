@@ -3,7 +3,7 @@ target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
-resources/application-local.yml
+src/main/resources/application-local.yml
 
 ### IntelliJ IDEA ###
 .idea
@@ -11,6 +11,8 @@ resources/application-local.yml
 *.iml
 *.ipr
 
+http/microservices-on-aws.pdf
+docker-config/config/.env
 docker-config/db/**
 docker-config/ollama_data/**
 docker-config/ollama_llama3_data/**

@@ -38,19 +38,22 @@ spring:
       pgvector:
         index-type: HNSW
         distance-type: COSINE_DISTANCE
-        dimensions: 1536
+        dimensions: 1024 #1536
         initialize-schema: false
         schema-name: public
         table-name: vector_store
         max-document-batch-size: 10000
+    mistralai:
+      api-key: ${MISTRALAI_API_KEY}
     openai:
       api-key: ${API_KEY}
-      base-url: https://ai-proxy.lab.epam.com
+      base-url: ${OPEN_AI_ENDPOINT:https://ai-proxy.lab.epam.com}
       chat:
         completions-path: /openai/deployments/gpt-4.1-mini-2025-04-14/chat/completions
-        model: "gpt-4.1-mini-2025-04-14" #"gpt-4-turbo"
+        model: gpt-4.1-mini-2025-04-14 #"gpt-4-turbo"
         base-url: ${OPEN_AI_ENDPOINT:https://ai-proxy.lab.epam.com}
         embeddings-path: /openai/deployments/text-embedding-ada-002/embeddings
+
   datasource:
     url: "jdbc:postgresql://localhost:5432/embeddings_db" #?stringtype=unspecified # 5433
     username: ${POSTGRES_USER:admin}

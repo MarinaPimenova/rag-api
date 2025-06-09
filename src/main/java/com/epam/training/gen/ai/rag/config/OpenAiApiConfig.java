@@ -2,15 +2,11 @@ package com.epam.training.gen.ai.rag.config;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.ai.chat.model.ChatModel;
-import org.springframework.ai.document.MetadataMode;
 import org.springframework.ai.model.ApiKey;
 import org.springframework.ai.model.SimpleApiKey;
 import org.springframework.ai.openai.OpenAiChatModel;
 import org.springframework.ai.openai.OpenAiChatOptions;
-import org.springframework.ai.openai.OpenAiEmbeddingModel;
-import org.springframework.ai.openai.OpenAiEmbeddingOptions;
 import org.springframework.ai.openai.api.OpenAiApi;
-import org.springframework.ai.retry.RetryUtils;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
@@ -36,13 +32,12 @@ public class OpenAiApiConfig {
         headers.add("Api-Key", aiConfig.getApiKey());
         ApiKey apiKey = new SimpleApiKey(aiConfig.getApiKey());
 
-        OpenAiApi openAiApi = new OpenAiApi(aiConfig.getBaseUrl(), apiKey, headers,
+        return new OpenAiApi(aiConfig.getBaseUrl(), apiKey, headers,
                 aiConfig.getChat().getCompletionsPath(),//"/openai/deployments/gpt-4.1-mini-2025-04-14/chat/completions",
                 aiConfig.getChat().getEmbeddingsPath(), //"/openai/deployments/text-embedding-ada-002/embeddings",
                 restClientBuilder, webClientBuilder, responseErrorHandler
         );
 
-        return openAiApi;
     }
 
     @Bean
@@ -58,16 +53,17 @@ public class OpenAiApiConfig {
                 .openAiApi(openAiApi)
                 .build();
     }
-
+/*
     @Bean
     public OpenAiEmbeddingModel openAiEmbeddingModel(OpenAiApi openAiApi) {
         return new OpenAiEmbeddingModel(
                 openAiApi,
                 MetadataMode.EMBED,
                 OpenAiEmbeddingOptions.builder()
-                        .model(aiConfig.getChat().getModel()) // "text-embedding-ada-002"
-                        .user("user")
+                        .model("text-embedding-ada-002") // "text-embedding-ada-002"
+                        .user("user-6")
                         .build(),
                 RetryUtils.DEFAULT_RETRY_TEMPLATE);
     }
+*/
 }

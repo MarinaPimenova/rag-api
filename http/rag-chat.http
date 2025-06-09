@@ -1,4 +1,4 @@
-POST http://localhost:8080/api/ask?sessionId=1
+POST http://localhost:8080/api/ask?sessionId=e4878ce3-89d7-494f-98af-04798ad5c6d7
 Content-Type: application/json
 
 {
@@ -13,13 +13,14 @@ Content-Type: application/json
 }
 ###
 ###
-POST http://localhost:8080/api/ask?sessionId=2
+POST http://localhost:8080/api/ask?sessionId=e4878ce3-89d7-494f-98af-04798ad5c6d7
 Content-Type: application/json
 
 {
   "question": "Please, list the ways to deploy Lambda-based application."
 }
 ###
+
 ### Send a form with the text and file fields
 POST http://localhost:8080/api/upload
 Content-Type: multipart/form-data; boundary=WebAppBoundary

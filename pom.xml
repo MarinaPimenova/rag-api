@@ -49,6 +49,12 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
+        <!-- Manual configuration of Mistral-ai -->
+        <dependency>
+            <groupId>org.springframework.ai</groupId>
+            <artifactId>spring-ai-mistral-ai</artifactId>
+        </dependency>
+
         <!--Instead of using the Spring Boot auto-configuration,
          manually configure the PgVectorStore. -->
         <dependency>
@@ -89,44 +95,6 @@
             <artifactId>lombok</artifactId>
             <optional>true</optional>
         </dependency>
-
-        <!--
-                <dependency>
-                    <groupId>com.microsoft.semantic-kernel</groupId>
-                    <artifactId>semantickernel-aiservices-openai</artifactId>
-                    <version>1.4.2</version>
-                </dependency>
-                <dependency>
-                    <groupId>com.microsoft.semantic-kernel</groupId>
-                    <artifactId>semantickernel-api</artifactId>
-                    <version>1.4.2</version>
-                </dependency>
-
-                <dependency>
-                    <groupId>com.microsoft.semantic-kernel</groupId>
-                    <artifactId>semantickernel-experimental</artifactId>
-                    <version>1.4.2</version>
-                </dependency>
-
-                <dependency>
-                    <groupId>com.microsoft.semantic-kernel</groupId>
-                    <artifactId>semantickernel-bom</artifactId>
-                    <version>1.4.2</version>
-                    <type>pom</type>
-                </dependency>
-
-                <dependency>
-                    <groupId>com.microsoft.semantic-kernel</groupId>
-                    <artifactId>semantickernel-settings-loader</artifactId>
-                    <version>0.2.13-alpha</version>
-                </dependency>
-                <dependency>
-                    <groupId>com.azure</groupId>
-                    <artifactId>azure-ai-openai</artifactId>
-                    <version>1.0.0-beta.14</version>
-                </dependency>
-        -->
-
         <!-- JSON library -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
